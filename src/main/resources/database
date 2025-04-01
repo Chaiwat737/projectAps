@@ -1,0 +1,22 @@
+CREATE TABLE acc.dbo.user_info (
+	id int IDENTITY(1,1) NOT NULL,
+	created_date datetime2(6) NOT NULL,
+	created_by varchar(255) COLLATE Thai_CI_AS NULL,
+	email varchar(255) COLLATE Thai_CI_AS NULL,
+	name varchar(255) COLLATE Thai_CI_AS NULL,
+	password varchar(255) COLLATE Thai_CI_AS NULL,
+	roles varchar(255) COLLATE Thai_CI_AS NULL,
+	CONSTRAINT PK__user_inf__3213E83F7A6C17A8 PRIMARY KEY (id)
+);
+CREATE TABLE acc.dbo.application (
+	app_id int IDENTITY(1,1) NOT NULL,
+	product_type varchar(255) COLLATE Thai_CI_AS NULL,
+	product_program varchar(255) COLLATE Thai_CI_AS NULL,
+	card_type varchar(255) COLLATE Thai_CI_AS NULL,
+	campaign_code varchar(255) COLLATE Thai_CI_AS NULL,
+	is_vip bit NOT NULL,
+	app_status varchar(255) COLLATE Thai_CI_AS NULL,
+	created_on datetime2(6) NULL,
+	modified_on datetime2(6) NULL,
+	CONSTRAINT PK__applicat__6F8A0A344919D4DC PRIMARY KEY (app_id)
+);
