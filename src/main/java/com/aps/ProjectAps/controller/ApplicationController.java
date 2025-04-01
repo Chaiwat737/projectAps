@@ -29,14 +29,14 @@ public class ApplicationController {
         return applicationService.getAllApplications();
     }
 
-    @RequestMapping(value = "getApplicationById/{appId}", method = RequestMethod.POST)
-    public ResponseEntity<Application> getApplicationById(@PathVariable Integer appId) {
+    @RequestMapping(value = "getApplicationById", method = RequestMethod.POST)
+    public ResponseEntity<Application> getApplicationById(@RequestParam(value = "appId",required = false) Integer appId) {
         Optional<Application> application = applicationService.getApplicationById(appId);
         return application.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @RequestMapping(value = "updateApplication/{appId}", method = RequestMethod.PUT)
-    public ResponseEntity<Application> updateApplication(@PathVariable Integer appId, @RequestBody Application application) {
+    public ResponseEntity<Application> updateApplication(@RequestParam(value = "appId",required = false) Integer appId, @RequestBody Application application) {
         Application updatedApp = applicationService.updateApplication(appId, application);
         return updatedApp != null ? ResponseEntity.ok(updatedApp) : ResponseEntity.notFound().build();
     }

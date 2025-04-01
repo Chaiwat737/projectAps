@@ -20,3 +20,10 @@ CREATE TABLE acc.dbo.application (
 	modified_on datetime2(6) NULL,
 	CONSTRAINT PK__applicat__6F8A0A344919D4DC PRIMARY KEY (app_id)
 );
+CREATE TABLE acc.dbo.credit_application (
+	id bigint NOT NULL,
+	credit_score varchar(255) COLLATE Thai_CI_AS NULL,
+	income decimal(38,0) NULL,
+	name varchar(255) COLLATE Thai_CI_AS NULL,
+	CONSTRAINT PK__credit_a__3213E83FF82229FA PRIMARY KEY (id)
+);

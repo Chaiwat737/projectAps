@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -38,22 +40,22 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/welcome", "/api/auth/addNewUser", "/api/auth/generateToken").permitAll()
-                        .requestMatchers("/api/applications/**").permitAll()
-                        .anyRequest().authenticated() // Protect all other endpoints
+                        .requestMatchers("/api/auth/welcome", "/api/auth/addNewUser", "/api/auth/generateToken").permitAll()  // อนุญาตให้เข้าถึงหน้า login
+                        .requestMatchers("/swagger-ui.html", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll()  // อนุญาตให้เข้าถึง Swagger UI
+                        .requestMatchers("/api/applications/**").permitAll()  // อนุญาตให้เข้าถึง API การสมัคร
+                        .anyRequest().authenticated()  // ทุก request ที่เหลือต้องการการยืนยันตัวตน
                 )
                 .sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ไม่ใช้ session
                 )
-                .authenticationProvider(authenticationProvider()) // Custom authentication provider
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+                .authenticationProvider(authenticationProvider()) // ใช้ custom authentication provider
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class); // เพิ่ม JWT filter
 
         return http.build();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Password encoding
+        return new BCryptPasswordEncoder(); // ใช้การเข้ารหัสรหัสผ่าน
     }
 
     @Bean

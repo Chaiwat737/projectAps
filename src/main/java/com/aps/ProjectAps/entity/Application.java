@@ -31,7 +31,7 @@ public class Application {
     @Column(name = "is_vip")
     private boolean isVip;
 
-    @Enumerated(EnumType.STRING)
+
     @Column(name = "app_status")
     private String appStatus;
 
