@@ -33,7 +33,7 @@ public class Application {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "app_status")
-    private ApplicationStatus appStatus;
+    private String appStatus;
 
 
     @Column(name = "created_on", nullable = false, updatable = false)
@@ -41,6 +41,9 @@ public class Application {
 
     @Column(name = "modified_on", nullable = false, updatable = false)
     private LocalDateTime modifiedOn;
+
+    public void setIsVip(boolean isVip) {
+    }
 
     public enum ApplicationStatus {
         PENDING, APPROVED, REJECTED
@@ -94,11 +97,11 @@ public class Application {
         isVip = vip;
     }
 
-    public ApplicationStatus getAppStatus() {
+    public String getAppStatus() {
         return appStatus;
     }
 
-    public void setAppStatus(ApplicationStatus appStatus) {
+    public void setAppStatus(String appStatus) {
         this.appStatus = appStatus;
     }
 
